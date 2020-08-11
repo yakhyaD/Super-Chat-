@@ -6,7 +6,7 @@ const ent = require('ent') // Permet de bloquer les caractères HTML (sécurité
 // Chargement de la page index.html
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/page.html');
-})
+});
 
 io.sockets.on('connection', (socket, pseudo) => {
     // Dès qu'on nous donne un pseudo, on le stocke en variable de session et on informe les autres personnes
