@@ -1,0 +1,9 @@
+Affichez un message aux autres personnes lors de la déconnexion d'un client
+
+Permettez aux clients de changer leur pseudo en plein milieu d'une session de Chat
+
+Et si vous rajoutiez des boutons sur la page pour faire jouer des sons préchargés à distance ? Un bon petit "ding" pour que les autres clients endormis se réveillent ?
+
+Essayez de sauvegarder les messages en mémoire sur le serveur pour qu'on retrouve la liste des derniers messages échangés lorsqu'on se connecte ! Vous pouvez sauvegarder les informations juste en mémoire vive comme on a appris à le faire... ou essayer carrément de coupler Node.js à une base de données MySQL, MongoDB, redis...
+
+Et si vos clients pouvaient s'envoyer des images en plus du texte ? 

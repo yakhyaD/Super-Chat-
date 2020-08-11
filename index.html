@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Super Chat en temps réel !</title>
+</head>
+
+<body>
+    <h1>Super Chat en temps réel !</h1>
+
+    <form action="/" method="post" id="form">
+        <input type="text" name="message" placeholder="Votre message..." id="post" size="50" autofocus>
+        <input type="submit" value="Envoyer" id="poster" />
+    </form>
+
+    <div id="zone_tchat">
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3030');
+        var message
+
+        // On demande le pseudo du client
+        const pseudo = prompt('Quel est votre pseudo')
+
+        // On l'envoie au serveur
+        socket.emit('new_client', pseudo)
+
+        // On l'affiche dans le titre
+        document.title = pseudo + ' - ' + document.title
+
+        // On affiche le message reçu sur la page
+        socket.on('message', (data) => {
+            insereMessage(data.pseudo, data.message)
+        })
+
+        // Quand un nouveau client se connecte, on affiche l'information
+        socket.on('new_client', (pseudo) => {
+            document.querySelector('#zone_chat').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+        })
+
+        // Lire le message ecrit 
+        document.querySelector('#post').addEventListener('input', (e) => {
+            message = e.target.value
+        })
+
+        // Lorsqu'on envoie un le formulaire, on transmet le message et on l'affiche sur la page
+        document.querySelector("#poster").addEventListener('submit', (e) => {
+            socket.emit('message', message)
+            insereMessage(pseudo, message)
+            document.querySelector('#post').addEventListener('input', (e) => {
+                e.target.value = ''
+            })
+            e.preventDefault()
+        })
+        const insereMessage = (pseudo, message) => {
+
+            var p = document.querySelector('#zone_chat').appendChild(document.createElement('p'))
+            p.innerHTML = pseudo + ' ' + message
+
+        }
+    </script>
+</body>
+
+</html>
